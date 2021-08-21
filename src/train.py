@@ -144,6 +144,13 @@ print('TRAIN len(): {} | VALID len(): {}'.format(len(train_loader.dataset), len(
 
 
 #- --------------------
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from segmentation_models_pytorch.encoders import get_encoder
+from segmentation_models_pytorch.base import initialization as init
+
 efnb7_noisy_student_encoder = get_encoder(encoder_name, 
                                           in_channels=in_channels,
                                           depth=depth,
