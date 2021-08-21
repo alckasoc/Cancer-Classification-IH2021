@@ -60,7 +60,7 @@ class SkinCancerDatasetRetriever(torch.utils.data.Dataset):
 		image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 		image = cv2.resize(image, (self.image_size, self.image_size)) #2, 3, 512, 512
 
-		label = torch.cuda.FloatTensor(self.df.loc[index, classes])
+		label = torch.Tensor(self.df.loc[index, classes])
 
 		transformed = self.transform(image=image)
 		image = transformed["image"]
