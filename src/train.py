@@ -141,7 +141,7 @@ CHECKPOINT = '{}_{}_{}_SKIN_CANCER.pth'.format(encoder_name, init_lr , lr_schedu
 
 
 if "categorical" in loss:
-	main_criterion = nn.CrosseEntropyLoss()
+	main_criterion = nn.CrossEntropyLoss()
 # might wanna use different losses
 
 
