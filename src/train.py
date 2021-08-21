@@ -11,7 +11,7 @@ from torch.utils.data.sampler import SequentialSampler, RandomSampler
 from timm.utils.model_ema import ModelEmaV2
 from segmentation_models_pytorch.utils.losses import DiceLoss
 from segmentation_models_pytorch.utils.metrics import IoU
-
+import torch.nn.functional as F
 
 
 # dataset generator
