@@ -162,35 +162,26 @@ log_file.close()
 best_epoch = 0
 count = 0
 
+criterion = nn.CrossEntropyLoss()
 
 for epoch in range(epochs):
 	print("Epoch: {}".format(epoch))
-	scheduler.step()
-	model.train()
 
-	train_loss = []
-
-
-
-	loop = tqdm(train_loader)
+	loss = 0.0
 	for images, labels in loop:
-		print(images.shape)
-		print(labels)
-		images = images.to(device)
-		labels = labels.to(device)
+		images.to(device)
+		labels.to(device)
 
 		optimizer.zero_grad()
-		
-		output = model(images)
-		loss_ = main_criterion(output, labels)
-		loss_.backward()
+
+		outputs = model(images)
+
+		loss = criterion(outputs, labels)
+
+		loss.backward()
 		optimizer.step()
 
-		train_loss.append(loss_)
-		train_loss.append(loss_.item())
-		print(train_loss)
-
-
+		print("Loss:","\n",loss)
 
 
 
