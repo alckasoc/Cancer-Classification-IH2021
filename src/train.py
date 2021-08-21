@@ -68,8 +68,8 @@ validation_df = pd.read_csv(val_df_path) # Metadata DF
 
 
 print("-----------------Training utils--------------------")
-print("-----------------\nTraining DataFrame: \n{}".format(ground_truth_df.head()))
-print("-----------------\nMetaData DataFrame: \n{}".format(metadata_df.head()))
+print("-----------------\nTraining DataFrame: \n{}".format(train_df.head()))
+print("-----------------\nValidation DataFrame: \n{}".format(validation_df.head()))
 print("Encoder Name: \n{}".format(encoder_name))
 print("LOG NAME: \n{}".format(log_name))
 print("`init` (start) learning rate: {}".format(init_lr))
