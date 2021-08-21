@@ -168,7 +168,7 @@ for epoch in range(epochs):
 	print("Epoch: {}".format(epoch))
 
 	loss = 0.0
-	for images, labels in loop:
+	for images, labels in train_loader:
 		images.to(device)
 		labels.to(device)
 
