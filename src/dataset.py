@@ -12,7 +12,7 @@ classes = ["MEL","NV","BCC","AK","BKL","DF","VASC","SCC","UNK"]
 # Dataset retriever for `skin cancer` classification
 class SkinCancerDatasetRetriever(torch.utils.data.Dataset):
 	def __init__(self, df, images_dir, image_size, mode):
-		super(SiimCovidAuxDataset, self).__init__()	
+		super(SkinCancerDatasetRetriever, self).__init__()	
 		self.df = df
 		self.images_dir = images_dir
 		self.image_size = image_size
