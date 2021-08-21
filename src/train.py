@@ -173,8 +173,8 @@ for epoch in range(epochs):
 
 	loss = 0.0
 	for images, labels in train_loader:
-		images.to(device)
-		labels.to(device)
+		image = images.to(device)
+		labels = labels.to(device)
 
 		optimizer.zero_grad()
 
