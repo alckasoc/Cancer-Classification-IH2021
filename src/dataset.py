@@ -54,7 +54,7 @@ class SkinCancerDatasetRetriever(torch.utils.data.Dataset):
 
 	def __getitem__(self, index):
 		#           /kaggle/input/isic-2019/ISIC_2019_Training_Input/ISIC_2019_Training_Input/ISIC_0000000.jpg
-		img_path = '/kaggle/input/isic-2019/ISIC_2019_Training_Input/ISIC_2019_Training_Input/{}.jpg'.format(self.df['Filename'].values[index])
+		img_path = '/kaggle/input/isic-2019/ISIC_2019_Training_Input/ISIC_2019_Training_Input/{}.jpg'.format(self.df['image'].values[index])
 
 		image = cv2.imread(img_path)
 		image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
