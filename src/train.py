@@ -48,7 +48,7 @@ pretrained_weights = "noisy-student"
 in_features = 1024
 num_workers = 4
 
-training_id = "training-{}-decoder-{}-channels-{}-{}-batch_size".format(encoder_name, in_channels, batch_size)
+training_id = "training-{}-decoder-{}-channels-{}-batch_size".format(encoder_name, in_channels, batch_size)
 log_name = "{}.log".format(training_id)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
