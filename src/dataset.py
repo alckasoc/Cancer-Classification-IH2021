@@ -57,10 +57,10 @@ class SkinCancerDatasetRetriever(torch.utils.data.Dataset):
 		img_path = '/kaggle/input/isic-2019/ISIC_2019_Training_Input/ISIC_2019_Training_Input/{}.jpg'.format(self.df['image'].values[index])
 
 		image = cv2.imread(img_path)
-		image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-		image = cv2.resize(image, (self.image_size, self.image_size)) #2, 3, 512, 512
+		#image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+		#image = cv2.resize(image, (self.image_size, self.image_size)) #2, 3, 512, 512
 
-		label = torch.Tensor(self.df.loc[index, classes])
+		label = torch.FlaotTensor(self.df.loc[index, classes])
 
 		transformed = self.transform(image=image)
 		image = transformed["image"]
