@@ -1,4 +1,4 @@
-import numpy as np 
+import numpy as np
 import cv2
 import torch
 from torch.utils.data import Dataset
@@ -7,27 +7,12 @@ from albumentations.pytorch import ToTensorV2
 from timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
 
 
-'''
-classes = [
-	'Melanoma',
-	'Melanocytic nevus',
-	'Basal cell carcinoma',
-	'Actinic keratosis',
-	'Benign keratosis', # Also: (solar lentigo / seborrheic keratosis / lichen planus-like keratosis)
-	'Dermatofibroma',
-	'Vascular lesion',
-	'Squamous cell carcinoma',
-	'Unknown' # Used for unlabelled scans
-
-]
-'''
-
 classes = ["MEL","NV","BCC","AK","BKL","DF","VASC","SCC","UNK"]
 
-# Dataset retriever for `skin cancer classification
+# Dataset retriever for `skin cancer` classification
 class SkinCancerDatasetRetriever(torch.utils.data.Dataset):
 	def __init__(self, df, images_dir, image_size, mode):
-		super(SiimCovidAuxDataset, self).__init__()
+		super(SiimCovidAuxDataset, self).__init__()	
 		self.df = df
 		self.images_dir = images_dir
 		self.image_size = image_size
@@ -71,7 +56,10 @@ class SkinCancerDatasetRetriever(torch.utils.data.Dataset):
 		#           /kaggle/input/isic-2019/ISIC_2019_Training_Input/ISIC_2019_Training_Input/ISIC_0000000.jpg
 		img_path = '/kaggle/input/isic-2019/ISIC_2019_Training_Input/ISIC_2019_Training_Input/{}.jpg'.format(self.df['Filename'].values[index])
 
-		image = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
+		image = cv2.imread(img_path)
+		image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+		image = cv2.resize(image, (self.image_size, self.image_size)) #2, 3, 512, 512
+
 		label = torch.FloatTensor(self.df.loc[index, classes])
 
 		transformed = self.transform(image=image)
