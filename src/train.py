@@ -145,12 +145,14 @@ if "categorical" in loss:
 # might wanna use different losses
 
 
-if "cosine" in lr_scheduler:
-    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs-1)
-
 optimzer = torch.optim.Adam(model.parameters(), lr = init_lr)
 
 scaler = torch.cuda.amp.GradScaler()
+
+
+
+if "cosine" in lr_scheduler:
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, epochs-1)
 
 
 log_file = open(log_name, "a")
