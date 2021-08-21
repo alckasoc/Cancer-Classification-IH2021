@@ -14,6 +14,10 @@ from segmentation_models_pytorch.utils.metrics import IoU
 import torch.nn.functional as F
 
 
+
+
+
+
 # dataset generator
 from dataset import SkinCancerDatasetRetriever
 
@@ -127,14 +131,59 @@ valid_loader = DataLoader(validation_dataset,
 print('TRAIN len(): {} | VALID len(): {}'.format(len(train_loader.dataset), len(valid_loader.dataset)))
 
 
-model = EfficientNetB7ClsHead(
+'''model = EfficientNetB7ClsHead(
 						in_features=in_features,
 						out_features=8,
 						in_channels = 3,
 						encoder_name="timm-efficientnet-b7",
 						pretrained_weights='noisy-student',
 						depth = 5
-						)
+						)'''
+
+
+
+
+#- --------------------
+efnb7_noisy_student_encoder = get_encoder(encoder_name, 
+                                          in_channels=in_channels,
+                                          depth=depth,
+                                          weights=pretrained_weights)
+
+class EfficientNetB7ClsHead(nn.Module):
+    def __init__(self, encoder, in_features):
+        super(EfficientNetB7ClsHead, self).__init__()
+        self.encoder = encoder
+        self.flatten_block = nn.Sequential(*list(self.encoder.children())[-4:])
+        
+        # Note: There seems to be a problem when I just slice the list of children layers. 
+        # Deletion works however.
+        del self.encoder.global_pool
+        del self.encoder.act2
+        del self.encoder.bn2
+        del self.encoder.conv_head
+        
+        self.fc = nn.Linear(2560, in_features, bias=True)  
+        self.cls_head = nn.Linear(in_features, len(CLASSES_DICT.keys()), bias=True)
+        
+        # Xavier uniform weight initialization.
+        init.initialize_head(self.fc)
+        init.initialize_head(self.cls_head)
+    
+    @autocast
+    def forward(self, x):
+        x = self.encoder(x)[-1]  # Output shape: (batch_size, 640, 16, 16).
+        x = self.flatten_block(x)  # Output shape: (batch_size, 2560).
+        x = self.fc(x)  # Output shape: (batch_size, 1024).
+        x = F.relu(x)  # Output shape: (batch_size, 1024).
+        x = F.dropout(x, p=0.5, training=self.training)  # Output shape: (batch_size, 1024).
+        x = self.cls_head(x)  # Output shape: (batch_size, 8).
+        return x
+    
+model = EfficientNetB7ClsHead(efnb7_noisy_student_encoder, in_features=in_features)
+
+#- --------------------
+
+
 
 model.to(device)
 CHECKPOINT = '{}_{}_{}_SKIN_CANCER.pth'.format(encoder_name, init_lr , lr_scheduler)
