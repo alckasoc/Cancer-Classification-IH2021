@@ -178,7 +178,7 @@ for epoch in range(epochs):
 
 		optimizer.zero_grad()
 
-		outputs = model(images)
+		outputs = model(images).to(device)
 
 		loss = criterion(outputs, labels)
 
