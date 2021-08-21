@@ -62,7 +62,7 @@ class EfficientNetB7ClsHead(nn.Module):
     
     #-----------------------
 
-    @torch.cuda.amp.autocast
+    #@torch.cuda.amp.autocast
     def forward(self, x):
         x = self.encoder(x)[-1]  # Output shape: (batch_size, 640, 16, 16).
         x = self.flatten_block(x)  # Output shape: (batch_size, 2560).
