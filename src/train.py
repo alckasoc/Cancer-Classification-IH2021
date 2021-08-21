@@ -145,7 +145,7 @@ if "categorical" in loss:
 # might wanna use different losses
 
 
-optimzer = torch.optim.Adam(model.parameters(), lr = init_lr)
+optimizer = torch.optim.Adam(model.parameters(), lr = init_lr)
 
 scaler = torch.cuda.amp.GradScaler()
 
