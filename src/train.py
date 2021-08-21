@@ -174,18 +174,19 @@ for epoch in range(epochs):
 
 	loop = tqdm(train_loader)
 	for images, labels in loop:
+		print(image.shape)
+		print(labels)
 		images = images.to(device)
 		labels = labels.to(device)
 
 		optimizer.zero_grad()
+		
+		output = model(images)
+		loss_ = main_criterion(output, labels)
+		loss_.backward()
+		optimizer.step()
 
-		with torch.cuda.amp.autocast():
-			output = model(images)
-			loss_ = main_criterion(output, labels)
-			loss_.backward()
-			optimizer.step()
-
-			train_loss.append(loss_)
+		train_loss.append(loss_)
 		train_loss.append(loss_.item())
 		print(train_loss)
 
