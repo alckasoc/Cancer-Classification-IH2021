@@ -174,7 +174,7 @@ for epoch in range(epochs):
 
 	loop = tqdm(train_loader)
 	for images, labels in loop:
-		print(image.shape)
+		print(images.shape)
 		print(labels)
 		images = images.to(device)
 		labels = labels.to(device)
