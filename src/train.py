@@ -114,13 +114,13 @@ validation_dataset = SkinCancerDatasetRetriever(
 
 train_loader = DataLoader(training_dataset, 
 						  batch_size=batch_size,
-						  sampler=RandomSampler(train_dataset), 
+						  sampler=RandomSampler(training_dataset), 
 						  num_workers=num_workers, 
 						  drop_last=True)
 
 valid_loader = DataLoader(validation_dataset, 
 						  batch_size=batch_size, 
-						  sampler=SequentialSampler(valid_dataset), 
+						  sampler=SequentialSampler(validation_dataset), 
 						  num_workers=num_workers, 
 						  drop_last=False)
 
