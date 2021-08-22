@@ -1,6 +1,5 @@
-# Cancer-Classification-IH2021
-"Fleshed Out"
-Multiclass Classification on Different Skin Cancers
+# "Fleshed Out"
+Cancer-Classification-IH2021 | Multiclass Classification on Different Skin Cancers
 
 Note from Vincent: 
 - The dataset is available [here](https://www.kaggle.com/andrewmvd/isic-2019).
